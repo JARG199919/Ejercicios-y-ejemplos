@@ -6,16 +6,16 @@
 int numero1=0, numero2=0,resultado=0, num;
 
 //Funciones
-void proceso1(),proceso2(), inicio();
+void entradaDatos(),proceso2(), inicio();
 int main(){
     system("cls");
     inicio();
-    proceso1();
+    entradaDatos();
     proceso2();
     printf("la respuesta es: %d",resultado);
     return 0;
 }
-
+// Definiciones de funciones
 void inicio(){ 
 printf("Ingrese un numero\n 1.suma \n 2.resta \n");
    scanf("%d",&num);
@@ -25,7 +25,7 @@ printf("Ingrese un numero\n 1.suma \n 2.resta \n");
        scanf("%d",&num);
    }
 }
-void proceso1(){
+void entradaDatos(){
     system("cls");
    if (num==1){
     printf("Suma\n");
