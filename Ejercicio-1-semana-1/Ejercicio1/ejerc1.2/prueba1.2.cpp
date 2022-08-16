@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+using namespace std;
 
 //Calculadora sencilla de dos cifras
 
@@ -15,6 +16,9 @@ void entradaDatos(),proceso2(), inicio();
 
 //programa principal
 int main(){
+
+    //cout<<"Ingresa"; un print 
+    //cin>>variable; un ingreso de datos como scanft
     system("cls");
     while (repiter==1){
     inicio();
