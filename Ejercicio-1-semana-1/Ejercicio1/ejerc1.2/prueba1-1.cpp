@@ -29,7 +29,6 @@ int main(){
     system("cls");
     }
 }
-
 // Definiciones de funciones
 
 //Pantalla de informacion
