@@ -2,10 +2,19 @@
 #include <string.h>
 
 using namespace std;
-int num;
+using std::string;
 
-int main (){
-    char nombre[num],apellido[num];
-
-
+int main()
+{
+    string nombre, apellido, nombreCompleto;
+    cout<<"Ingrese su nombre:\n";
+    cin >> nombre;
+    cout<<"Ingrese su apellido\n";
+    cin >> apellido;
+    nombreCompleto = nombre +" "+ apellido;
+    cout << "\n" + nombreCompleto;
+    for (int i = 0; i < nombre.length(); i++){
+        nombre[i] = toupper(nombre[i]);
+    }
+    cout << "\n" + nombre;
 }
