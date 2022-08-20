@@ -9,9 +9,13 @@ int main()
 {
     int arreglo[num], aux, contar = 0, pos;
     system("cls");
-    cout << "Ingrese el tamano del arreglo";
+    cout << "Ingrese el tamano del arreglo (Max 9)\n";
     cin >> num;
-    cout << "Los datos de el arreglo desea\n1.ingresarlos\n2.Aleatorios";
+    if (num > 10 || num < 1 ){
+       cin >> num;
+    }
+    system("cls");
+    cout << "Los datos de el arreglo desea\n1.ingresarlos\n2.Aleatorios\n";
     cin >> inpp;
     switch (inpp)
     {
