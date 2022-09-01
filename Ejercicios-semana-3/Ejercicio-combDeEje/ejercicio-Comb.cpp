@@ -16,20 +16,21 @@ struct datos1
 
 } *InDatos;
 //Funciones
-struct datos1 principal(struct datos1 );
+//struct datos1 principal(struct datos1 );
 void Inentrada();
 void salida();
 
 int main()
 {
     Inentrada();
+    
     for (int i = 0; i < num; i++)
     {
     cout<<"Ingrese el nombre de producto :";
+
     getline(cin,InDatos[i].nombre);
     cin.ignore();
     cout<<"Ingrese el precio ";
-    
     cin>>InDatos[i].precio;
     cout<<"Ingrese la cantidad ";
     cin>>InDatos[i].cantidad;
