@@ -6,7 +6,7 @@ using namespace std;
 //se uso punteros
 int suma,num;
 
-//Estructura
+//Estructur
 
 struct datos1
 {
