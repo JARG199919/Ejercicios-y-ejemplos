@@ -29,32 +29,35 @@ int main()
     {
         system("cls");
 
-        cout << "Opciones: \n1.Factorial !\n2.Promediacion\n3.Mostrar una matriz\n4.Ordenamiento de numeros\n5.salir" << endl;
+        cout << "Opciones: \n1.Factorial !\n2.Promediacion\n3.Mostrar una matriz con numeros aleatorios y con ordenamiento\n4.Ordenamiento de numeros\n5.salir" << endl;
         cin >> numeroMenu;
         switch (numeroMenu)
         {
         case 1:
-
+            system("cls");
             cout << "Eleccion de Factorial \nIngrese la inicializacion: " << endl;
             cin >> numIN;
             cout << "\nSolucion Recursiva: " << factorial(numIN) << endl;
             system("PAUSE");
             break;
         case 2:
-
+            system("cls");
             inPromedio();
             arrayOdenamiento();
             system("PAUSE");
             break;
         case 3:
+            system("cls");
             cout << "Eleccion de Tabla :" << endl;
             arreglosDinamicos();
             system("PAUSE");
             break;
 
         case 4:
-            cout << "Eleccion de Ordenamiento" << endl;
+            system("cls");
+            cout << "Eleccion de Ordenamiento VECTOR" << endl;
             arreglosOrdenamiento();
+            arrayOdenamiento();
             system("PAUSE");
             break;
         case 5:
@@ -64,7 +67,7 @@ int main()
             system("PAUSE");
             break;
         }
-    } while (numeroMenu != 4);
+    } while (numeroMenu != 5);
     return 0;
 }
 
@@ -268,6 +271,7 @@ void arrayOdenamiento()
     {
         cout << arreglo1[i] << " ";
     }
+    cout<<"\n";
 }
 void inPromedio()
 {
