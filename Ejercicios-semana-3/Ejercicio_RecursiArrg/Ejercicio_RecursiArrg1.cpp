@@ -1,12 +1,20 @@
 #include <iostream>
 #include <stdio.h>
+/*#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>*/
 
 using namespace std;
 
-int **arreglo, numIN, numeroMenu = 0, numFilas, numColumnas, num, inpp, aux, contar = 0, minimoNum, *arreglo1;
+int **arreglo, numIN = 0, numeroMenu = 0, numFilas, numColumnas, num, inpp, aux, contar = 0, minimoNum, *arreglo1;
+float sumaA = 0.0, NumeroDeEntrada;
+float *promedioNum;
 int factorial(int);
 void arreglosDinamicos();
 void arreglosOrdenamiento();
+void inPromedio();
+float promedio(float nums[], float n, int current = 0);
 
 int main()
 {
@@ -14,7 +22,7 @@ int main()
     {
         system("cls");
 
-        cout << "Opciones: \n1.Factorial !\n2.Mostrar una matriz\n3.Ordenamiento de numeros" << endl;
+        cout << "Opciones: \n1.Factorial !\n2.Promediacion\n3.Mostrar una matriz\n4.Ordenamiento de numeros\n5.salir" << endl;
         cin >> numeroMenu;
         switch (numeroMenu)
         {
@@ -25,20 +33,28 @@ int main()
             cout << "\nSolucion Recursiva: " << factorial(numIN) << endl;
             return 0;
         case 2:
+
+            inPromedio();
+            system("PAUSE");
+            break;
+        case 3:
             cout << "Eleccion de Tabla :" << endl;
             arreglosDinamicos();
             break;
 
-        case 3:
+        case 4:
             arreglo1 = new int[num];
             cout << "Eleccion de Ordenamiento" << endl;
             arreglosOrdenamiento();
             break;
+        case 5:
+            return 0;
         default:
             cout << "Ingrese un numero Valido " << endl;
+            system("PAUSE");
             break;
         }
-    } while (numeroMenu != 3);
+    } while (numeroMenu != 4);
     return 0;
 }
 
@@ -150,11 +166,10 @@ void arreglosOrdenamiento()
 
         default:
             system("cls");
-            cout << "Ingrese un numero valido"<<endl;
+            cout << "Ingrese un numero valido" << endl;
             system("PAUSE");
-            
         }
-    }while (inpp != 2); 
+    } while (inpp != 2);
 
     for (int i = 0; i < num; i++)
     {
@@ -181,4 +196,44 @@ void arreglosOrdenamiento()
     {
         cout << arreglo1[i] << " ";
     }
+}
+void inPromedio()
+{
+    contar = 0;
+    system("cls");
+    cout << "Eleccion de potenciacion " << endl
+         << "Ingrese la cantidad de numeros a promediar:" << endl;
+    cin >> numIN;
+
+    promedioNum=new float[numIN];
+   
+    /*int i;
+    if (i > numIN)
+    {
+        i++;
+        contar++;
+        cout << "Ingrese la " << contar << " cantidad: " << endl;
+        cin >> promedioNum[i];
+    }
+    */
+    for (int i = 0; i < numIN; i++)
+    {
+        contar++;
+        system("cls");
+        cout << "Ingrese la " << contar << " cantidad: " << endl;
+        cin>>promedioNum[i];
+        
+    }
+    cout << "\nEl promedio es: " << promedio(promedioNum, numIN) << "\n";
+}
+
+float promedio(float nums[], float n, int current)
+{
+    if (current < n)
+    {
+        sumaA += nums[current];
+        promedio(nums, n, current + 1);
+    }
+
+    return sumaA / n;
 }
