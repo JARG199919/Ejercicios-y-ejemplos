@@ -7,14 +7,21 @@
 
 using namespace std;
 
-int **arreglo, numIN = 0, numeroMenu = 0, numFilas, numColumnas, num, inpp, aux, contar = 0, minimoNum, *arreglo1;
+int **arreglo, numIN = 0, numeroMenu = 0, numFilas, numColumnas, num, inpp, aux=0, aux1, contar = 0, minimoNum, minimoNum2, *arreglo1;
 float sumaA = 0.0, NumeroDeEntrada;
 float *promedioNum;
 int factorial(int);
 void arreglosDinamicos();
 void arreglosOrdenamiento();
+void arrayOdenamiento();
 void inPromedio();
 float promedio(float nums[], float n, int current = 0);
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
 
 int main()
 {
@@ -36,6 +43,7 @@ int main()
         case 2:
 
             inPromedio();
+            arrayOdenamiento();
             system("PAUSE");
             break;
         case 3:
@@ -101,7 +109,65 @@ void arreglosDinamicos()
         }
     } // Agregar un multiplicador,un promedio, suma, y ordenamiento
 
-    // Mostrar datos
+    // Mostrar datos original
+    for (int i = 0; i < numFilas; i++)
+    {
+        for (int j = 0; j < numColumnas; j++)
+        {
+            cout << "|" << *(*(arreglo + i) + j) << "|";
+        }
+        cout << endl;
+    }
+    
+    for (int x = 0; x < numFilas; x++)
+    {
+        for (int i = 0; i < numColumnas; i++)
+        {
+            for (int y = x; y < numFilas; y++)
+            {   
+                for (int j = 0; j < numColumnas; j++)
+                {   
+                    if (arreglo[x][i] < arreglo[y][j])
+                    {
+                        aux1 = arreglo[y][j];
+                        arreglo[y][j] = arreglo[x][i] ;
+                        arreglo[x][i] = aux1;
+                    }
+                }
+            }
+        }
+    }
+/*
+    for (int x = 0; x < numFilas; x++)
+    {
+        for (int i = 0; i < numColumnas; i++)
+        {
+            // Hipotesis, que el primer valor del arreglo es el menor
+            minimoNum = i;
+            // Segundo recorrido se inicia en la segunda posición
+            for (int j = i + 1; j < numColumnas; j++)
+            {
+                // Comparación entre elemento actual con el primer valor que se estableció como menor
+                if (arreglo[x][i] < arreglo[x][minimoNum])
+                {
+                    // Establecer el elemento actual como el menor valor
+                    minimoNum2 = j;
+                }
+            }
+            // Intercambio de valores del arreglo
+            // swap(&arreglo[x][minimoNum],&arreglo[x][i]);
+            aux1 = arreglo[x][i];
+            arreglo[x][i] = arreglo[x][minimoNum2];
+            arreglo[x][i] = aux1;
+        }
+    }*/
+
+    cout << "\nEl orden final en modo seleccion es: \n";
+    /*for (int i = 0; i < num; i++)
+    {
+        cout << arreglo1[i] << " ";
+*/
+    // Mostrar datos despues
     for (int i = 0; i < numFilas; i++)
     {
         for (int j = 0; j < numColumnas; j++)
@@ -126,13 +192,14 @@ void arreglosOrdenamiento()
     system("cls");
     cout << "Ingrese el tamano del arreglo (Max 9)\n";
     cin >> num;
-    
+
     if (num > 10 || num < 1)
     {
         cin >> num;
     }
     do
-    {   arreglo1 = new int[num];
+    {
+        arreglo1 = new int[num];
         system("cls");
         cout << "Los datos de el arreglo desea\n1.ingresarlos\n2.Aleatorios\n";
         cin >> inpp;
@@ -173,7 +240,9 @@ void arreglosOrdenamiento()
             system("PAUSE");
         }
     } while (inpp != 2);
-
+}
+void arrayOdenamiento()
+{
     for (int i = 0; i < num; i++)
     {
         // Hipotesis, que el primer valor del arreglo es el menor
@@ -199,7 +268,6 @@ void arreglosOrdenamiento()
     {
         cout << arreglo1[i] << " ";
     }
-    cout<<"\nSaliendo Automaticamente\n";
 }
 void inPromedio()
 {
@@ -209,8 +277,8 @@ void inPromedio()
          << "Ingrese la cantidad de numeros a promediar:" << endl;
     cin >> numIN;
 
-    promedioNum=new float[numIN];
-   
+    promedioNum = new float[numIN];
+
     /*int i;
     if (i > numIN)
     {
@@ -225,8 +293,7 @@ void inPromedio()
         contar++;
         system("cls");
         cout << "Ingrese la " << contar << " cantidad: " << endl;
-        cin>>promedioNum[i];
-        
+        cin >> promedioNum[i];
     }
     cout << "\nEl promedio es: " << promedio(promedioNum, numIN) << "\n";
 }
