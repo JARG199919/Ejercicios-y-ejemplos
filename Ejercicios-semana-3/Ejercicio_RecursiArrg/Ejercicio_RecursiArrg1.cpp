@@ -31,7 +31,8 @@ int main()
             cout << "Eleccion de Factorial \nIngrese la inicializacion: " << endl;
             cin >> numIN;
             cout << "\nSolucion Recursiva: " << factorial(numIN) << endl;
-            return 0;
+            system("PAUSE");
+            break;
         case 2:
 
             inPromedio();
@@ -40,12 +41,13 @@ int main()
         case 3:
             cout << "Eleccion de Tabla :" << endl;
             arreglosDinamicos();
+            system("PAUSE");
             break;
 
         case 4:
-            arreglo1 = new int[num];
             cout << "Eleccion de Ordenamiento" << endl;
             arreglosOrdenamiento();
+            system("PAUSE");
             break;
         case 5:
             return 0;
@@ -109,27 +111,28 @@ void arreglosDinamicos()
         cout << endl;
     }
 
-    // Liberacion de memoria
-    for (int i = 0; i < numFilas; i++)
+    // Liberacion de memoria//Agregar una codicional opcional para eliminar la memoria de el arreglo bidimincional
+    /*for (int i = 0; i < numFilas; i++)
     {
         for (int j = 0; j < numColumnas; j++)
         {
             delete[] arreglo[i];
         }
     }
-    delete[] arreglo;
+    delete[] arreglo;*/
 }
 void arreglosOrdenamiento()
 {
     system("cls");
     cout << "Ingrese el tamano del arreglo (Max 9)\n";
     cin >> num;
+    
     if (num > 10 || num < 1)
     {
         cin >> num;
     }
     do
-    {
+    {   arreglo1 = new int[num];
         system("cls");
         cout << "Los datos de el arreglo desea\n1.ingresarlos\n2.Aleatorios\n";
         cin >> inpp;
@@ -196,6 +199,7 @@ void arreglosOrdenamiento()
     {
         cout << arreglo1[i] << " ";
     }
+    cout<<"\nSaliendo Automaticamente\n";
 }
 void inPromedio()
 {
