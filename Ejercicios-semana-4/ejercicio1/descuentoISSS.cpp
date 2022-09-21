@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// ejemplo para retroalimentar
+
 int arry, contar = 0;
 struct registro
 {
@@ -20,7 +22,6 @@ int main()
 
     return 0;
 }
-
 double descuentoISSS(double mat)
 {
     double des;
