@@ -16,12 +16,12 @@ void arreglosOrdenamiento();
 void arrayOdenamiento();
 void inPromedio();
 float promedio(float nums[], float n, int current = 0);
-void swap(int *xp, int *yp)
+/*void swap(int *xp, int *yp)
 {
     int temp = *xp;
     *xp = *yp;
     *yp = temp;
-}
+}*/
 
 int main()
 {
