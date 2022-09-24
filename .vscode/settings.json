@@ -131,7 +131,10 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "cerrno": "cpp"
+        "cerrno": "cpp",
+        "ios": "cpp",
+        "queue": "cpp",
+        "cstdbool": "cpp"
     },
     "C_Cpp.errorSquiggles": "EnabledIfIncludesResolve",
     "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
