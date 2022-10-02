@@ -3,11 +3,12 @@
 
 using namespace std;
 // Variable global
-int valor, menu, adicional, contar = 0;
+int valor, menu, adicional/*Por si acaso se agrega mas variables*/, contar = 0;
 
 struct Nodo
 {
     int dato;
+    
     struct Nodo *siguiente;
 };
 struct Nodo *frenteCola = NULL;
@@ -18,9 +19,10 @@ bool Vacia();
 void Insertar(int);
 int Eliminar(int &);
 void Imprimir();
+void principal();
+
 /*void ImprimirFrente();
 void ImprimirFinal();*/
-void principal();
 
 int main()
 {
