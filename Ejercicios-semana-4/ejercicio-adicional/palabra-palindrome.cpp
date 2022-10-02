@@ -1,5 +1,6 @@
 // Determinar si una palabra es palindrome
 //creado por "CARLOS EDUARDO MERCADO GUTIERREZ <00058820@uca.edu.sv> "
+//Editado por Jesus
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -37,7 +38,7 @@ int main()
     char respaldo[n+1];
     strncpy(respaldo, palabra, n);
     
-    palindrome_recursivo(palabra, respaldo, n, n-1, 0);
+    //palindrome_recursivo(palabra, respaldo, n, n-1, 0);
     
     return 0;
 }
@@ -71,8 +72,8 @@ void palindrome(char palabra[], int n) {
 // n -> tamaño de la palabra
 // i -> variable que recorre la palabra original (de manera inversa)
 // j -> variable que recorre la palabra de respaldo (de manera normal)
-void palindrome_recursivo(char palabra[], char respaldo[], int n, int i, int j) {
-   /* // cout << i << " " << j << "\n";
+/*void palindrome_recursivo(char palabra[], char respaldo[], int n, int i, int j) {
+    // cout << i << " " << j << "\n";
     // cout << palabra[i] << " " << respaldo[j] << "\n";
     if (palabra[i] != respaldo[j]) {
         cout << "La palabra NO es palindrome!\n";
@@ -84,5 +85,5 @@ void palindrome_recursivo(char palabra[], char respaldo[], int n, int i, int j) 
     } else {
         // CASO RECURSIVO
         palindrome_recursivo(palabra, respaldo, n, i-1, j+1);
-    }*/
-}
+    }
+}*/
