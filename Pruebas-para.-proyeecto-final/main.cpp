@@ -41,7 +41,7 @@ void menu_principal()
 
     // Titulo del menú y nombres de las opciones
     const char *titulo = "MENU DE OPCIONES";
-    const char *opciones[] = {"Sumar", "Restar", "Multiplicar", "Dividir", "Salir"};
+    const char *opciones[] = {"Ingresar palabras", "Ver Biblioteca", "Editar", "Eliminar", "Salir"};
     int n = 5; // Numero de opciones
 
     do
@@ -67,7 +67,7 @@ void menu_principal()
             break;
 
         case 5:
-            cout << "\nEl programa se cerrara!! ADIOS" << endl;
+            cout << "\n\t\t\tEl programa se cerrara!! ADIOS" << endl;
             repite = false;
             system("pause>nul");
             break;
@@ -75,7 +75,6 @@ void menu_principal()
 
     } while (repite);
 }
-
 char getch2()
 {
     char c = 0;
@@ -317,6 +316,31 @@ int menu(const char titulo[], const char *opciones[], int n)
     5 = Púrpura     D = Púrpura claro
     6 = Amarillo    E = Amarillo claro
     7 = Blanco      F = Blanco brillante */
+
+
+    //Imprime un cuadro
+        int i
+        ,x1=2
+        ,y1=1
+        ,x2=80
+        ,y2=28;
+        char m=205,mn=186,xm=201,rm=200,xas=188,dsa=187;
+
+    for (i=x1;i<x2;i++){
+		gotoxy(i,y1); printf("%c",m); //linea horizontal superior
+		gotoxy(i,y2); printf("%c",m); //linea horizontal inferior
+    }
+    for (i=y1;i<y2;i++){
+		gotoxy(x1,i); printf("%c",mn); //linea vertical izquierda
+		gotoxy(x2,i); printf("%c",mn); //linea vertical derecha
+	}
+    gotoxy(x1,y1); printf("%c",xm);
+    gotoxy(x1,y2); printf("%c",rm);
+    gotoxy(x2,y1); printf("%c",dsa);
+    gotoxy(x2,y2); printf("%c",xas);
+
+
+
         gotoxy(5, 3 + opcionSeleccionada);
         cout << "==>" << endl;
 
