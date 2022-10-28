@@ -5,9 +5,11 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+
 /*#define ARRIBA 72
 #define ABAJO 80
 #define ENTER 13*/
+
 #define ARRIBA 'w'
 #define ABAJO 's'
 #define ENTER 13
@@ -19,13 +21,32 @@
 */
 using namespace std;
 
+int inserMen, menu, x1 = 2, y1 = 1, x2 = 80, y2 = 28;
+string singnificado,palabra;
+
+
+
+struct Nodo
+{
+    string palabras, signi;
+    struct Nodo *siguiente;
+};
+
+struct Nodo *lista = NULL;
+
+// Declaración de funciones
+void Insertar(string n, string m);
+void Imprimir();
+bool buscador(string n);
+void EliminarInicio();
+void EliminarFinal();
+void principal();
+void Eliminar();
+void imprimeCuadro();
+
 int gotoxy(USHORT x, USHORT y);
-int menu(const char titulo[], const char *opciones[], int n);
+int menu1(const char titulo[], const char *opciones[], int n);
 void menu_principal();
-void menu_suma();
-void menu_resta();
-void menu_producto();
-void menu_division();
 
 int main()
 {
@@ -36,7 +57,7 @@ int main()
 
 void menu_principal()
 {
-    bool repite = true;
+    bool encontrado,repite = true;
     int opcion;
 
     // Titulo del menú y nombres de las opciones
@@ -45,25 +66,61 @@ void menu_principal()
     int n = 5; // Numero de opciones
 
     do
-    {
-        opcion = menu(titulo, opciones, n);
+    {   
+        
+        y2=28;
+        opcion = menu1(titulo, opciones, n);
+       
 
         switch (opcion)
         {
         case 1:
-            menu_suma();
+
+            //encontrado = true;
+            system("cls");
+            imprimeCuadro();
+            gotoxy(15, 3);
+            cout << "Ingresar la nueva palabra:";
+            gotoxy(15, 4);
+            cin >> palabra;
+            encontrado = buscador(palabra);
+            // cout << encontrado ;
+            if (!encontrado)
+            {   
+                gotoxy(15, 5);
+                cout << "Ingrese el significado(Obligatorio):";
+                // cin >> nombre;
+                cin.ignore();
+                gotoxy(15, 6);
+                getline(cin, singnificado);
+                //
+                Insertar(palabra, singnificado);
+            }
+            else
+            {   
+                cout << "!! La palabra que ingreso ya esta registrada !!\n";
+            }
+            getch();
             break;
 
         case 2:
-            menu_resta();
+            system("cls");
+            cout<<"\n";
+            Imprimir();
+            cout << "\n\t\t\tOprima una tecla para continuar\n";
+            imprimeCuadro();
+            getch();
             break;
 
         case 3:
-            menu_producto();
             break;
 
         case 4:
-            menu_division();
+            system("cls");
+            imprimeCuadro();
+            Eliminar();
+            cout << "\n\t\t\tOprima una tecla para continuar\n";
+            getch();
             break;
 
         case 5:
@@ -91,211 +148,44 @@ char getch2()
     SetConsoleMode(ih, modo); // Devolvemos control normal
     return c;
 }
+void imprimeCuadro(){
+        // Imprime un cuadro
+        //int i, x1 = 2, y1 = 1, x2 = 80, y2 = 28;
+        int i;
+        char m = 205, mn = 186, xm = 201, rm = 200, xas = 188, dsa = 187;
+
+        for (i = x1; i < x2; i++)
+        {
+            gotoxy(i, y1);
+            printf("%c", m); // linea horizontal superior
+            gotoxy(i, y2);
+            printf("%c", m); // linea horizontal inferior
+        }
+        for (i = y1; i < y2; i++)
+        {
+            gotoxy(x1, i);
+            printf("%c", mn); // linea vertical izquierda
+            gotoxy(x2, i);
+            printf("%c", mn); // linea vertical derecha
+        }
+        gotoxy(x1, y1);
+        printf("%c", xm);
+        gotoxy(x1, y2);
+        printf("%c", rm);
+        gotoxy(x2, y1);
+        printf("%c", dsa);
+        gotoxy(x2, y2);
+        printf("%c", xas);
+
+}
 
 int gotoxy(USHORT x, USHORT y)
 {
     COORD cp = {x, y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cp);
 }
-void menu_suma()
-{
-    bool repite = true;
-    int opcion;
 
-    // Titulo del menú y nombres de las opciones
-    const char *titulo = "MENU PARA SUMAR";
-    const char *opciones[] = {"Sumar enteros", "Sumar flotantes", "Regresar"};
-
-    int n = 3; // Numero de opciones
-    int a, b;
-    float c, d;
-    do
-    {
-        opcion = menu(titulo, opciones, n);
-        system("cls");
-        switch (opcion)
-        {
-        case 1:
-            cout << "numero1 = ";
-            cin >> a;
-
-            cout << "numero2 = ";
-            cin >> b;
-
-            cout << a << " + " << b << " = " << a + b << endl;
-            system("pause>nul");
-            break;
-        case 2:
-            cout << "numero1 = ";
-            cin >> c;
-
-            cout << "numero2 = ";
-            cin >> d;
-
-            cout << c << " + " << d << " = " << c + d << endl;
-            system("pause>nul");
-            break;
-        case 3:
-            repite = false;
-            break;
-        }
-
-    } while (repite);
-}
-
-void menu_resta()
-{
-    bool repite = true;
-    int opcion;
-
-    // Titulo del menú y nombres de las opciones
-    const char *titulo = "MENU PARA RESTAR";
-    const char *opciones[] = {"Restar enteros", "Restar flotantes", "Regresar"};
-    int n = 3; // Numero de opciones
-    int a, b;
-    float c, d;
-
-    do
-    {
-        opcion = menu(titulo, opciones, n);
-
-        system("cls");
-        switch (opcion)
-        {
-        case 1:
-            cout << "numero1 = ";
-            cin >> a;
-
-            cout << "numero2 = ";
-            cin >> b;
-
-            cout << a << " - " << b << " = " << a - b << endl;
-            system("pause>nul");
-            break;
-        case 2:
-            cout << "numero1 = ";
-            cin >> c;
-
-            cout << "numero2 = ";
-            cin >> d;
-
-            cout << c << " - " << d << " = " << c - d << endl;
-            system("pause>nul");
-            break;
-        case 3:
-            repite = false;
-            break;
-        }
-    } while (repite);
-}
-
-void menu_producto()
-{
-    bool repite = true;
-    int opcion;
-
-    // Titulo del menú y nombres de las opciones
-    const char *titulo = "MENU PARA MULTIPLICAR";
-    const char *opciones[] = {"Multiplicar enteros", "Multiplicar flotantes", "Regresar"};
-    int n = 3; // Numero de opciones
-    int a, b;
-    float c, d;
-    do
-    {
-        opcion = menu(titulo, opciones, n);
-
-        system("cls");
-        switch (opcion)
-        {
-        case 1:
-            cout << "numero1 = ";
-            cin >> a;
-
-            cout << "numero2 = ";
-            cin >> b;
-
-            cout << a << " x " << b << " = " << a * b << endl;
-            system("pause>nul");
-            break;
-
-        case 2:
-            cout << "numero1 = ";
-            cin >> c;
-
-            cout << "numero2 = ";
-            cin >> d;
-
-            cout << c << " x " << d << " = " << c * d << endl;
-            system("pause>nul");
-            break;
-
-        case 3:
-            repite = false;
-            break;
-        }
-
-    } while (repite);
-}
-
-void menu_division()
-{
-    bool repite = true;
-    int opcion;
-
-    // Titulo del menú y nombres de las opciones
-    const char *titulo = "MENU PARA DIVIDIR";
-    const char *opciones[] = {"Dividir enteros", "Dividir flotantes", "Regresar"};
-    int n = 3; // Numero de opciones
-
-    int a, b;
-    float c, d;
-
-    do
-    {
-        opcion = menu(titulo, opciones, n);
-
-        system("cls");
-        switch (opcion)
-        {
-        case 1:
-            cout << "numero1 = ";
-            cin >> a;
-
-            cout << "numero2 = ";
-            cin >> b;
-
-            if (b == 0)
-                cout << "No se puede dividir por cero" << endl;
-            else
-                cout << a << " div " << b << " = " << a / b << endl;
-
-            system("pause>nul");
-            break;
-
-        case 2:
-            cout << "numero1 = ";
-            cin >> c;
-
-            cout << "numero2 = ";
-            cin >> d;
-
-            if (d == 0)
-                cout << "No se puede dividir por cero" << endl;
-            else
-                cout << c << " / " << d << " = " << c / d << endl;
-
-            system("pause>nul");
-            break;
-
-        case 3:
-            repite = false;
-            break;
-        }
-
-    } while (repite);
-}
-
-int menu(const char titulo[], const char *opciones[], int n)
+int menu1(const char titulo[], const char *opciones[], int n)
 {
     int opcionSeleccionada = 1; // Indica la opcionSeleccionada
 
@@ -317,29 +207,7 @@ int menu(const char titulo[], const char *opciones[], int n)
     6 = Amarillo    E = Amarillo claro
     7 = Blanco      F = Blanco brillante */
 
-
-    //Imprime un cuadro
-        int i
-        ,x1=2
-        ,y1=1
-        ,x2=80
-        ,y2=28;
-        char m=205,mn=186,xm=201,rm=200,xas=188,dsa=187;
-
-    for (i=x1;i<x2;i++){
-		gotoxy(i,y1); printf("%c",m); //linea horizontal superior
-		gotoxy(i,y2); printf("%c",m); //linea horizontal inferior
-    }
-    for (i=y1;i<y2;i++){
-		gotoxy(x1,i); printf("%c",mn); //linea vertical izquierda
-		gotoxy(x2,i); printf("%c",mn); //linea vertical derecha
-	}
-    gotoxy(x1,y1); printf("%c",xm);
-    gotoxy(x1,y2); printf("%c",rm);
-    gotoxy(x2,y1); printf("%c",dsa);
-    gotoxy(x2,y2); printf("%c",xas);
-
-
+        imprimeCuadro();
 
         gotoxy(5, 3 + opcionSeleccionada);
         cout << "==>" << endl;
@@ -395,4 +263,188 @@ int menu(const char titulo[], const char *opciones[], int n)
     } while (repite);
 
     return opcionSeleccionada;
+}
+bool buscador(string n)
+{
+    struct Nodo *temporal = lista;
+    bool found;
+    while (temporal != NULL)
+    {
+        if (temporal->palabras == n)
+        {
+            found = true;
+        }
+        temporal = temporal->siguiente;
+        return found;
+    }
+}
+
+void Eliminar()
+{
+
+    inserMen = 0;
+    system("cls");
+    cout << "1. Eliminar valor del inicio\n2. Eliminar valor del final\n";
+    cin >> inserMen;
+
+    switch (inserMen)
+    {
+    case 1:
+        EliminarInicio();
+        break;
+    case 2:
+        EliminarFinal();
+        break;
+    default:
+        cout << "Ingrese un valor valido: \n";
+        getch();
+        return Eliminar();
+    }
+}
+
+// Insertar nodos a la lista
+void Insertar(string n, string m)
+{
+    system("cls");
+    struct Nodo *nuevoNodo = new Nodo();
+    struct Nodo *temporal = lista;
+    inserMen = 0;
+
+    cout << "\nCarnet a Ingresar: " << n << "\tNombre: " << m << "\n\n1. Ingresar valor al inicio\n2. Ingresar valor al final\n";
+    cin >> inserMen;
+
+    switch (inserMen)
+    {
+    case 1:
+
+        if (nuevoNodo != NULL)
+        {
+            nuevoNodo->palabras = n;
+            nuevoNodo->signi = m;
+            nuevoNodo->siguiente = NULL;
+
+            // Si la lista esta vacia
+            if (lista == NULL)
+            {
+                lista = nuevoNodo;
+            }
+            else
+            {
+
+                while (temporal->siguiente != NULL)
+                {
+                    temporal = temporal->siguiente;
+                }
+                temporal->siguiente = nuevoNodo;
+            }
+        }
+        else
+        {
+            cout << "Error. no se pueden agregar mas nodos";
+        }
+        break;
+    case 2:
+
+        if (nuevoNodo != NULL)
+        {
+            nuevoNodo->palabras = n;
+            nuevoNodo->signi = m;
+            nuevoNodo->siguiente = NULL;
+            if (lista == NULL)
+            {
+                lista = nuevoNodo;
+            }
+            else
+            {
+                while (temporal->siguiente != NULL)
+                {
+                    temporal = temporal->siguiente;
+                }
+                temporal->siguiente = nuevoNodo;
+            }
+        }
+        else
+        {
+            cout << "No se pueden agregar mas nodos";
+        }
+        break;
+
+    default:
+        cout << "Ingreso un valor valido!.\nPresione cualquier boton para continuar... \n";
+        getch();
+        return Insertar(n, m);
+    }
+}
+void EliminarInicio()
+{
+    struct Nodo *temporal = lista;
+    // Si en la lista se encuentran elementos
+    if (lista != NULL)
+    {
+        // Borra el elemento
+        lista = lista->siguiente;
+        // Libera la memoria
+        delete temporal;
+    }
+    else
+    {
+        cout << "Lista vacia";
+    }
+}
+
+void EliminarFinal()
+{
+    struct Nodo *temporal = lista;
+    struct Nodo *temporal2;
+
+    if (lista != NULL)
+    {
+        // Si el nodo no es el ultimo
+        if (temporal->siguiente != NULL)
+        {
+            // Se realiza la iteraciones hasta encontra el ultimo nodo que apunte a NULL
+            while (temporal->siguiente != NULL)
+            {
+                temporal2 = temporal;
+                temporal = temporal->siguiente;
+            }
+            // Almacena el penultimo nodo sera quien apunte NULL
+            temporal2->siguiente = NULL;
+            // Se libera la memoria del nodo ultimo
+            delete temporal;
+            temporal = NULL;
+        }
+        else // Si unicamente se encontraba un nodo en la lista
+        {
+            delete lista;
+            lista = NULL;
+        }
+    }
+    else
+    {
+        cout << "Lista vacia";
+    }
+}
+
+void Imprimir()
+{   
+    int contm=0;
+    
+    struct Nodo *temporal = lista;
+    if (lista != NULL)
+    {   
+        while (temporal != NULL)
+        {   
+            contm++;
+            cout << "\n\t\t"<<contm << "." << temporal->palabras<<"\n\t\tconcepto: " << temporal->signi << endl;
+            temporal = temporal->siguiente;
+            
+
+        }
+    }
+    else
+    {  
+        cout << "\n\t\t!!!Lista vacia!!!";
+    }
+    y2=5*contm;
 }
