@@ -13,12 +13,7 @@
 #define ARRIBA 'w'
 #define ABAJO 's'
 #define ENTER 13
-/*
-#define ARRIBA 1
-#define ABAJO 0
-#define ENTER 13
-#define INVALIDO -1
-*/
+
 using namespace std;
 
 int inserMen, menu, x1 = 2, y1 = 1, x2 = 80, y2 = 28;
@@ -113,13 +108,19 @@ void menu_principal()
             break;
 
         case 3:
+            system("cls");
+            cout<<"\n\n\t\t  !!!Esta funcion no esta progrmada aun.!!!";
+            cout << "\n\n\t\t\tOprima una tecla para continuar\n";
+            imprimeCuadro();
+            getch();
+        //agragar una funcion con busqueda para editar el arreglo de la  estructura
             break;
 
         case 4:
             system("cls");
-            imprimeCuadro();
             Eliminar();
             cout << "\n\t\t\tOprima una tecla para continuar\n";
+            imprimeCuadro();
             getch();
             break;
 
@@ -284,7 +285,10 @@ void Eliminar()
 
     inserMen = 0;
     system("cls");
-    cout << "1. Eliminar valor del inicio\n2. Eliminar valor del final\n";
+    imprimeCuadro();
+    gotoxy(16, 4);
+    cout << "1. Eliminar valor del inicio"<<"\n\t\t2. Eliminar valor del final\n";
+    gotoxy(15, 6);
     cin >> inserMen;
 
     switch (inserMen)
@@ -296,6 +300,7 @@ void Eliminar()
         EliminarFinal();
         break;
     default:
+        gotoxy(15, 8);
         cout << "Ingrese un valor valido: \n";
         getch();
         return Eliminar();
@@ -387,8 +392,9 @@ void EliminarInicio()
         delete temporal;
     }
     else
-    {
-        cout << "Lista vacia";
+    {   
+        gotoxy(15, 10);
+        cout << "!!Lista vacia!!";
     }
 }
 
@@ -421,8 +427,9 @@ void EliminarFinal()
         }
     }
     else
-    {
-        cout << "Lista vacia";
+    {   
+        gotoxy(15, 10);
+        cout << "!!Lista vacia!!";
     }
 }
 
