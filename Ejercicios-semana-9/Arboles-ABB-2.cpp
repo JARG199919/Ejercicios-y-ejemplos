@@ -11,7 +11,7 @@ struct Nodo
 	Nodo *padre;
 };
 
-int numeros[] = {
+int numeros[] = {//Datos preestablecidos
 	10,
 	5,
 	3,
@@ -155,8 +155,18 @@ regresaMenu:
 		system("pause");
 		goto regresaMenu;
 		break;
+
+	case 9:
+	system("cls");
+	cout<<"Usted esta saliendo, !Gracias por utilizar el programa\n\n";
+	return;
+	break;
+
 	default:
-		return;
+		system("cls");
+		cout<<"Ingresa correctamente el dato (Solo numeros 1-9)\n";
+		system("pause");
+		goto regresaMenu;
 		break;
 	}
 }
