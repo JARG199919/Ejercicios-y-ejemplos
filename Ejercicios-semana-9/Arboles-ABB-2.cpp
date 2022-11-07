@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -9,6 +10,22 @@ struct Nodo
 	Nodo *der;
 	Nodo *padre;
 };
+
+int numeros[] = {
+	10,
+	5,
+	3,
+	8,
+	6,
+	9,
+	7,
+	15,
+	12,
+	20,
+	30};
+
+int sizeArray = (sizeof(numeros) / sizeof(*numeros));
+
 Nodo *arbol = NULL;
 Nodo *crearNodo(int dato, Nodo *padre);
 void insertarNodo(Nodo *&arbol, int dato, Nodo *padre);
@@ -41,7 +58,7 @@ regresaMenu:
 		 << "4.- Mostrar arbol en preorden\n"
 		 << "5.- Mostrar arbol en inorden\n"
 		 << "6.- Mostrar arbol en postorden\n"
-		 << "7.- Ingresar datos de ejemplo\n"
+		 << "7.- Ingresar datos de ejemplo(Preestablecidos)\n"
 		 << "8.- Eliminar nodo\n"
 		 << "9.- Salir\n"
 		 << "ingresa una opcion:\n";
@@ -49,6 +66,7 @@ regresaMenu:
 	switch (opcion)
 	{
 	case 1:
+		system("cls");
 		cout << "Ingresa el numero del nodo a insertar:";
 		cin >> dato;
 		insertarNodo(arbol, dato, NULL);
@@ -56,6 +74,7 @@ regresaMenu:
 		goto regresaMenu;
 		break;
 	case 2:
+		system("cls");
 		cout << "\n\tARBOL\n";
 		mostrarArbol(arbol, 0);
 		cout << "\n";
@@ -63,6 +82,7 @@ regresaMenu:
 		goto regresaMenu;
 		break;
 	case 3:
+		system("cls");
 		cout << "Ingrese el numero a buscar en el arbol:";
 		cin >> dato;
 		if (buscarNodoArbol(arbol, dato) == true)
@@ -77,6 +97,7 @@ regresaMenu:
 		goto regresaMenu;
 		break;
 	case 4:
+		system("cls");
 		cout << "\t ARBOL EN PREORDEN\n";
 		preorden(arbol);
 		cout << "\n";
@@ -84,6 +105,7 @@ regresaMenu:
 		goto regresaMenu;
 		break;
 	case 5:
+		system("cls");
 		cout << "\t ARBOL EN INORDEN\n";
 		inorden(arbol);
 		cout << "\n";
@@ -91,6 +113,7 @@ regresaMenu:
 		goto regresaMenu;
 		break;
 	case 6:
+		system("cls");
 		cout << "\t ARBOL EN POSTORDEN\n";
 		postorden(arbol);
 		cout << "\n";
@@ -98,7 +121,16 @@ regresaMenu:
 		goto regresaMenu;
 		break;
 	case 7:
-		insertarNodo(arbol, 10, NULL);
+		system("cls");
+		cout << "Se ingreso los datos: \n";
+
+		for (int i = 0; i < sizeArray; i++)
+		{
+			insertarNodo(arbol, numeros[i], NULL);
+			cout << numeros[i] << ", ";
+		}
+		cout << "\n";
+		/*insertarNodo(arbol, 10, NULL);
 		insertarNodo(arbol, 5, NULL);
 		insertarNodo(arbol, 3, NULL);
 		insertarNodo(arbol, 8, NULL);
@@ -108,11 +140,15 @@ regresaMenu:
 		insertarNodo(arbol, 15, NULL);
 		insertarNodo(arbol, 12, NULL);
 		insertarNodo(arbol, 20, NULL);
-		insertarNodo(arbol, 30, NULL);
+		insertarNodo(arbol, 30, NULL);*/
 		system("pause");
 		goto regresaMenu;
 		break;
 	case 8:
+		system("cls");
+		cout << "\t ARBOL EN PREORDEN\n";
+		preorden(arbol);
+		cout << "\n";
 		cout << "ingresa el nodo a eliminar:";
 		cin >> dato;
 		buscarParaEliminar(arbol, dato);
