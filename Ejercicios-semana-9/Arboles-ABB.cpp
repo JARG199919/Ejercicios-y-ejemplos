@@ -11,8 +11,7 @@ struct Nodo
 };
 
 struct Nodo *Crear(int n, struct Nodo *padre);
-// Se pasa un puntero y por referencia ya que se modificara el valor
-void Insertar(struct Nodo *&arbol, int n, struct Nodo *padre);
+void InsertarArbolABB(struct Nodo *&arbol, int n, struct Nodo *padre);
 void Inorden(struct Nodo *arbol);
 void Preorden(struct Nodo *arbol);
 void Postorden(struct Nodo *arbol);
@@ -21,21 +20,34 @@ void BuscarNodoEliminar(struct Nodo *arbol, int n);
 void NodoEliminar(struct Nodo *nodo);
 struct Nodo *NodoMenor(struct Nodo *arbol);
 void SustituirNodo(struct Nodo *arbol, struct Nodo *nuevoNodo);
-void Destruir(struct Nodo *nodo);
+void DeletedArbol(struct Nodo *nodo);
 
 struct Nodo *arbol = NULL;
 
 int main()
 {
-    int dato;
+    int dato, eliminarDato;
+    string in;
 
     Crear(dato, arbol);
-    for (int i = 0; i < 5; i++)
+
+    do
     {
-        cout << "Ingresa un valor:\n";
-        cin >> dato;
-        Insertar(arbol, dato, NULL);
-    }
+        cout << "Ingresar datos s/n;\n";
+        cin >> in;
+        if (in == "s")
+        {
+
+            cout << "Ingresa un valor:\n";
+            cin >> dato;
+            InsertarArbolABB(arbol, dato, NULL);
+        }
+        else
+        {
+            cout << "Ingrese la opcion correctamente\n";
+        }
+
+    } while (in != "n");
 
     cout << "Recorrido Inorden   ";
     Inorden(arbol);
@@ -44,11 +56,13 @@ int main()
     cout << " \nRecorrido Postorden ";
     Postorden(arbol);
     cout << "\n--------------" << endl;
-    // cout << "Nodo encontrado 1 - nodo no encontrado 0 " << Buscar(arbol, 5) << endl;
-    BuscarNodoEliminar(arbol, 10);
+
+    cout << "ingrese el dato que quiere eliminar: \n";
+    cin >> eliminarDato;
+
+    BuscarNodoEliminar(arbol, eliminarDato);
     cout << "Recorrido Inorden ";
     Inorden(arbol);
-
     return 0;
 }
 
@@ -64,9 +78,9 @@ struct Nodo *Crear(int n, struct Nodo *padre)
     return nuevoNodo;
 }
 
-void Insertar(struct Nodo *&arbol, int n, struct Nodo *padre)
+void InsertarArbolABB(struct Nodo *&arbol, int n, struct Nodo *padre)
 {
-    // Si arbol esta vacio
+    // Si arbol esta vacio, crea un nodo
     if (arbol == NULL)
     {
         struct Nodo *nuevoNodo = Crear(n, padre);
@@ -78,11 +92,11 @@ void Insertar(struct Nodo *&arbol, int n, struct Nodo *padre)
         // Si valor ingresado es menor a la raiz
         if (n < raiz)
         {
-            Insertar(arbol->izquierdo, n, arbol);
+            InsertarArbolABB(arbol->izquierdo, n, arbol);
         }
         else
         {
-            Insertar(arbol->derecho, n, arbol);
+            InsertarArbolABB(arbol->derecho, n, arbol);
         }
     }
 }
@@ -183,17 +197,17 @@ void NodoEliminar(struct Nodo *nodo)
     else if (nodo->izquierdo)
     {
         SustituirNodo(nodo, nodo->izquierdo);
-        Destruir(nodo);
+        DeletedArbol(nodo);
     }
     else if (nodo->derecho)
     {
         SustituirNodo(nodo, nodo->derecho);
-        Destruir(nodo);
+        DeletedArbol(nodo);
     }
     else
     { // si es el nodo a eliminar es hoja
         SustituirNodo(nodo, NULL);
-        Destruir(nodo);
+        DeletedArbol(nodo);
     }
 }
 
@@ -231,7 +245,7 @@ void SustituirNodo(struct Nodo *arbol, struct Nodo *nuevoNodo)
     }
 }
 
-void Destruir(struct Nodo *nodo)
+void DeletedArbol(struct Nodo *nodo)
 {
     nodo->izquierdo = NULL;
     nodo->derecho = NULL;
