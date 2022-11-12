@@ -1,36 +1,46 @@
 #include <iostream>
-
+#include <sstream>
+#include <fstream>
+#define NOMBRE_ARCHIVO "datos_12.csv"
 using namespace std;
+
+
+
 struct Nodo
 {
-    string datos;
+    string datos,descrip,ant;
     struct Nodo *siguiente;
 };
 
 struct Nodo *lista = NULL;
-
-// Declaración de funciones
-void Insertar(string n);
+void Insertar(string n,string m,string x);
 void Imprimir();
-void eliminarNodo(Nodo **cabeza, string dato);
-
 
 int main()
 {
-    Insertar("papa");
-    Insertar("Tasa");
-    Insertar("Casa");
-    Insertar("Vista");
-    Imprimir();
-    cout<<"--------------------\n\n";
-    eliminarNodo(&lista,"Casa");
-    Imprimir();
+    ifstream archivo(NOMBRE_ARCHIVO);
+    string linea;
+    char delimitador = ',';
+    // Leemos la primer línea para descartarla, pues es el encabezado
+    getline(archivo, linea);
+    // Leemos todas las líneas
+    while (getline(archivo, linea))
+    {
 
-    return 0;
+        stringstream stream(linea); // Convertir la cadena a un stream
+        string pal, ant1,descrip;
+        // Extraer todos los valores de esa fila
+        getline(stream, pal, delimitador);
+        getline(stream, ant1, delimitador);
+        getline(stream, descrip, delimitador);
+        Insertar(pal, ant1, descrip);
+
+    }
+
+    archivo.close();
+    Imprimir();
 }
-
-// Insertar nodos a la lista
-void Insertar(string n)
+void Insertar(string n,string m,string x)
 {
 
     // Reserva de memoria
@@ -40,6 +50,8 @@ void Insertar(string n)
     if (nuevoNodo != NULL)
     {
         nuevoNodo->datos = n;
+        nuevoNodo->ant = m;
+        nuevoNodo->descrip = x;
         nuevoNodo->siguiente = NULL;
         // Si la lista esta vacia se agrega el primer nodo
         if (lista == NULL)
@@ -74,42 +86,12 @@ void Imprimir()
     {
         while (temporal != NULL)
         {
-            cout << "Lista " << temporal->datos << " Direccion " << temporal << " dir nodo siguiente " << temporal->siguiente << endl;
+            cout << "Lista " << temporal->datos <<" tipo de dato: "<< temporal->ant<<" significado:" << temporal->descrip << endl;
             temporal = temporal->siguiente;
         }
     }
     else
     {
         cout << "Lista vacia";
-    }
-}
-
-void eliminarNodo(Nodo **cabeza, string dato)
-{
-    Nodo *actual = *cabeza;
-    Nodo *anterior = NULL;
-    while ((actual != NULL) && (actual->datos != dato))
-    {
-        anterior = actual;
-        actual = actual->siguiente;
-    }
-    if (actual == NULL)
-    {
-        if (*cabeza == NULL)
-            cout << "la lista esta vacia\n";
-        else
-            cout << "No se encontro el elemento\n";
-    }
-    else
-    {
-        if (*cabeza == actual)
-        {
-            *cabeza = actual->siguiente;
-        }
-        else
-        {
-            anterior->siguiente = actual->siguiente;
-            delete actual;
-        }
     }
 }
